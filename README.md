@@ -1,37 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lock-Chain
 
-## Getting Started
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Flock-chain.vercel.app)](https://lock-chain.vercel.app)
 
-First, run the development server:
+## Descrição
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Lock-Chain é um projeto que implementa criptografia segura, armazenamento de dados no IPFS via Pinata e interação com contratos inteligentes na blockchain Ethereum.
+
+## Tecnologias Utilizadas
+
+- **React** & **Next.js**
+- **TypeScript**
+- **Ethers.js**
+- **Crypto (Node.js)**
+- **Pinata IPFS**
+
+## Instalação
+
+1. Clone o repositório:
+   ```sh
+   git clone https://github.com/seu-usuario/lock-chain.git
+   ```
+2. Instale as dependências:
+   ```sh
+   cd lock-chain
+   npm install
+   ```
+3. Configure as variáveis de ambiente no arquivo `.env.local`:
+   ```sh
+   NEXT_PINATA_API_KEY=SEU_API_KEY
+   NEXT_PINATA_SECRET_API_KEY=SEU_SECRET_API_KEY
+   NEXT_PUBLIC_CONTRACT_ADDRESS=SEU_CONTRACT_ADDRESS
+   ```
+4. Inicie o projeto:
+   ```sh
+   npm run dev
+   ```
+
+## Principais Funcionalidades
+
+### 1. Criptografia com AES
+
+A biblioteca `useCrypto` permite criptografar e descriptografar mensagens usando AES em diferentes modos.
+
+#### Exemplo de Uso:
+
+```tsx
+const { encryptMessage, decryptMessage } = useCrypto();
+const result = encryptMessage({
+  message: "Hello World",
+  key: "1234567890123456",
+  mode: "AES_CBC",
+});
+console.log(result.encryptedMessage);
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Upload e Download via Pinata (IPFS)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+A biblioteca `usePinata` permite armazenar e recuperar arquivos no IPFS utilizando Pinata.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Exemplo de Uso:
 
-## Learn More
+```tsx
+const { uploadToPinata, fetchFromPinata } = usePinata();
+const ipfsHash = await uploadToPinata("Meu arquivo JSON");
+const data = await fetchFromPinata(ipfsHash);
+console.log(data);
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Interação com Contratos Inteligentes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+A biblioteca `useContract` conecta-se a contratos inteligentes na Ethereum via MetaMask.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Exemplo de Uso:
 
-## Deploy on Vercel
+```tsx
+const contract = useContract();
+if (contract) {
+  const balance = await contract.getBalance();
+  console.log(balance);
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Licença
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# lock-chain
+Este projeto está sob a licença MIT.
