@@ -13,9 +13,9 @@ export const usePinata = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY || "",
+          pinata_api_key: `${process.env.NEXT_PUBLIC_PINATA_API_KEY}` || "",
           pinata_secret_api_key:
-            process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY || "",
+            `${process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY}` || "",
         },
         body: JSON.stringify({
           pinataContent: content,
